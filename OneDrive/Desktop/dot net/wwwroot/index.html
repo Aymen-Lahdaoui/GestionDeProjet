@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizon Manager | Gérez Vos Projets avec Simplicité</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌅</text></svg>">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #a855f7;
+      --bg: #0b0e14;
+      --surface: rgba(255, 255, 255, 0.03);
+      --text-main: #f8fafc;
+      --text-sec: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --glass: rgba(15, 23, 42, 0.6);
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.8rem 1.6rem;
+      border-radius: 99px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface);
+      border-color: var(--text-sec);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-sec);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero-mockup-container {
+      position: relative;
+      margin: 0 auto;
+      max-width: 1000px;
+      padding: 20px;
+    }
+
+    .hero-mockup {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border);
+      display: block;
+      transform: perspective(1000px) rotateX(5deg);
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .hero-mockup:hover {
+      transform: perspective(1000px) rotateX(0deg) scale(1.02);
+    }
+
+    /* Problem/Solution */
+    .prob-sol {
+      padding: 100px 0;
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 3rem;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      height: 100%;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+      font-size: 1.1rem;
+    }
+
+    .icon-check {
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    .icon-x {
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+    /* Features */
+    .features {
+      padding: 120px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title p {
+      color: var(--text-sec);
+      font-size: 1.2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .feat-card {
+      padding: 3rem 2rem;
+      border-radius: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all 0.4s var(--ease-spring);
+    }
+
+    .feat-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.2);
+    }
+
+    .feat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .feat-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feat-card p {
+      color: var(--text-sec);
+    }
+
+    /* Steps */
+    .steps {
+      padding: 120px 0;
+      text-align: center;
+      background: rgba(99, 102, 241, 0.02);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      position: relative;
+    }
+
+    .step-num {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .steps-grid h3 {
+      margin-bottom: 1rem;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 100px 0;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.08), transparent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--text-sec));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-sec);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 120px 0;
+    }
+
+    .test-card {
+      padding: 3rem;
+      border-radius: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .stars {
+      color: #fbbf24;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .test-content {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: var(--text-main);
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-info h4 {
+      font-size: 1.1rem;
+    }
+
+    .author-info p {
+      color: var(--text-sec);
+      font-size: 0.9rem;
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 120px 0;
+    }
+
+    .price-card {
+      padding: 4rem 3rem;
+      border-radius: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price-card.featured {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.05);
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .price-card h3 {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: var(--text-sec);
+    }
+
+    .price-val {
+      font-size: 4rem;
+      font-weight: 800;
+      margin: 2rem 0;
+    }
+
+    .price-val span {
+      font-size: 1.2rem;
+      color: var(--text-sec);
+      font-weight: 400;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 3rem;
+      flex-grow: 1;
+    }
+
+    .price-features li {
+      margin-bottom: 1.2rem;
+      color: var(--text-sec);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 100px 0 50px;
+      border-top: 1px solid var(--border);
+      background: #05070a;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 6rem;
+      margin-bottom: 6rem;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 2rem;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 1rem;
+    }
+
+    .footer-col a {
+      color: var(--text-sec);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      border-top: 1px solid var(--border);
+      padding-top: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-sec);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+
+      .price-card.featured {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .grid-2,
+      .features-grid,
+      .steps-grid,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
+  <script>
+    // Security/Routing: If already logged in, redirect to the app automatically
+    if (localStorage.getItem('token')) {
+      window.location.href = 'app.html';
+    }
+  </script>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">
+        <span style="font-size: 1.6rem;">🌅</span> Horizon Manager
+      </a>
+      <div class="nav-links">
+        <a href="#features">Fonctionnalités</a>
+        <a href="#how">Comment ça marche</a>
+        <a href="#pricing">Tarifs</a>
+        <a href="login.html" class="btn btn-outline" style="padding: 0.6rem 1.5rem; border-radius: 12px;">Se
+          Connecter</a>
+        <a href="register.html" class="btn btn-primary" style="padding: 0.6rem 1.5rem; border-radius: 12px;">Créer un
+          compte</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Gérez Vos Projets avec <span>Simplicité</span></h1>
+      <p>La plateforme tout-en-un pour planifier, collaborer et livrer vos projets plus rapidement. Réunissez votre
+        équipe autour d'une interface intuitive.</p>
+      <div class="hero-btns">
+        <button onclick="location.href='register.html'" class="btn btn-primary"
+          style="padding: 1rem 2.5rem; font-size: 1.1rem;">🚀 Commencer Gratuitement</button>
+        <button class="btn btn-outline" style="padding: 1rem 2.5rem; font-size: 1.1rem;">▶️ Voir Démo</button>
+      </div>
+      <div class="hero-mockup-container">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+          alt="Horizon Manager Dashboard Mockup" class="hero-mockup">
+      </div>
+    </div>
+  </header>
+
+  <section class="prob-sol">
+    <div class="container">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">❌ Le Chaos Actuel</div>
+          <div class="list-item"><span class="icon-x">✕</span> Projets désorganisés et éparpillés sur 10 outils</div>
+          <div class="list-item"><span class="icon-x">✕</span> Communication d'équipe inefficace (emails, chats partout)
+          </div>
+          <div class="list-item"><span class="icon-x">✕</span> Délais non respectés par manque de suivi centralisé</div>
+          <div class="list-item"><span class="icon-x">✕</span> Zéro visibilité sur la charge de travail réelle</div>
+        </div>
+        <div class="card" style="border-color: var(--primary);">
+          <div class="card-title">✅ La Solution Horizon</div>
+          <p style="margin-bottom: 2.5rem; color: var(--text-sec); font-size: 1.15rem;">Une plateforme unifiée qui
+            automatise le suivi et libère votre créativité.</p>
+          <div class="list-item"><span class="icon-check">✓</span> Une seule source de vérité pour tous vos fichiers et
+            tâches</div>
+          <div class="list-item"><span class="icon-check">✓</span> Rappels intelligents et timelines dynamiques</div>
+          <div class="list-item"><span class="icon-check">✓</span> Messenger d'entreprise intégré pour une collab fluide
+          </div>
+          <div class="list-item"><span class="icon-check">✓</span> Analytics en temps réel sur la performance d'équipe
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Tout ce dont vous avez besoin</h2>
+        <p>Horizon Manager combine puissance et simplicité pour vos flux de travail.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <span class="feat-icon">📊</span>
+          <h3>Tableaux de Bord</h3>
+          <p>Suivez l'avancement global en un coup d'œil avec des indicateurs de performance en temps réel.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">✅</span>
+          <h3>Gestion des Tâches</h3>
+          <p>Assignez, priorisez et suivez chaque micro-détail avec notre système de statut intelligent.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">👥</span>
+          <h3>Collaboration Équipe</h3>
+          <p>Discutez en direct et partagez vos documents sans jamais quitter votre espace de travail.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📅</span>
+          <h3>Planning Calendrier</h3>
+          <p>Visualisez les timelines et les jalons critiques pour ne plus jamais rater une échéance importante.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📈</span>
+          <h3>Rapports Avancés</h3>
+          <p>Exportez des rapports détaillés sur la productivité et les temps passés sur chaque projet.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🔔</span>
+          <h3>Smart Notifications</h3>
+          <p>Soyez averti instantanément des changements majeurs, même quand vous n'êtes pas sur l'app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="steps">
+    <div class="container">
+      <div class="section-title">
+        <h2>Adoptez Horizon en 3 étapes</h2>
+      </div>
+      <div class="steps-grid">
+        <div>
+          <div class="step-num">1</div>
+          <h3>Inscrivez-vous</h3>
+          <p>Créez votre espace en 30 secondes, sans engagement et sans carte bancaire.</p>
+        </div>
+        <div>
+          <div class="step-num">2</div>
+          <h3>Importez vos Projets</h3>
+          <p>Ajoutez vos tâches et invitez vos collaborateurs pour lancer la machine.</p>
+        </div>
+        <div>
+          <div class="step-num">3</div>
+          <h3>Obtenez des Résultats</h3>
+          <p>Gagnez des heures de productivité chaque semaine dès le premier jour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div><span class="stat-val">1.2k+</span><span class="stat-label">Projets Gérés</span></div>
+        <div><span class="stat-val">650+</span><span class="stat-label">Équipes Actives</span></div>
+        <div><span class="stat-val">98%</span><span class="stat-label">Client Satisfaits</span></div>
+        <div><span class="stat-val">4.9</span><span class="stat-label">Note App Store</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>La confiance de nos clients</h2>
+      </div>
+      <div class="grid-2">
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p class="test-content">"Horizon Manager a radicalement changé notre façon de bosser. On a réduit nos réunions
+            de suivi de 50% car tout le monde sait exactement quoi faire."</p>
+          <div class="test-author">
+            <div
+              style="width:50px; height:50px; background:var(--primary); border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700;">
+              AK</div>
+            <div class="author-info">
+              <h4>Ahmed K.</h4>
+              <p>Directeur Technique, Casablanca</p>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p class="test-content">"L'interface la plus propre que j'ai vu sur le marché. Simple, rapide et surtout, les
+            membres de mon équipe l'adorent vraiment."</p>
+          <div class="test-author">
+            <div
+              style="width:50px; height:50px; background:var(--secondary); border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700;">
+              SM</div>
+            <div class="author-info">
+              <h4>Sarah M.</h4>
+              <p>Product Manager, Freelance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Un tarif pour chaque ambition</h2>
+      </div>
+      <div class="features-grid">
+        <div class="price-card">
+          <h3>FREE</h3>
+          <div class="price-val">0<span> MAD/mo</span></div>
+          <ul class="price-features">
+            <li>✓ 3 Projets Actifs</li>
+            <li>✓ 5 Membres d'Équipe</li>
+            <li>✓ Support Communauté</li>
+            <li>✕ Analytics Avancés</li>
+          </ul>
+          <button onclick="location.href='register.html'" class="btn btn-outline">Commencer</button>
+        </div>
+        <div class="price-card featured">
+          <div
+            style="background:var(--primary); color:white; font-size: 0.7rem; padding: 6px 40px; position:absolute; top: 18px; right: -40px; transform: rotate(45deg); font-weight: 700;">
+            BEST-SELLER</div>
+          <h3>PROFESSIONNEL</h3>
+          <div class="price-val">99<span> MAD/mo</span></div>
+          <ul class="price-features">
+            <li>✓ Projets Illimités</li>
+            <li>✓ Jusqu'à 20 Membres</li>
+            <li>✓ Support Prioritaire</li>
+            <li>✓ Rapports de Performance</li>
+          </ul>
+          <button onclick="location.href='register.html'" class="btn btn-primary">Essayer Gratuitement</button>
+        </div>
+        <div class="price-card">
+          <h3>BUSINESS</h3>
+          <div class="price-val">299<span> MAD/mo</span></div>
+          <ul class="price-features">
+            <li>✓ Membres Illimités</li>
+            <li>✓ Sécurité Entreprise</li>
+            <li>✓ Support Dédié 24h/24</li>
+            <li>✓ Onboarding VIP</li>
+          </ul>
+          <button class="btn btn-outline">Nous Contacter</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    style="padding: 120px 0; text-align: center; background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.05));">
+    <div class="container">
+      <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Prêt à changer de dimension ?</h2>
+      <p style="margin-bottom: 3rem; color: var(--text-sec); font-size: 1.3rem;">Rejoignez les équipes qui livrent avec
+        une longueur d'avance.</p>
+      <button onclick="location.href='register.html'" class="btn btn-primary"
+        style="padding: 1.2rem 4rem; font-size: 1.2rem; border-radius: 16px;">🚀 Créer Mon Compte Gratuit</button>
+      <p style="margin-top: 1.5rem; color: var(--text-sec); font-size: 0.9rem;">Pas d'engagement. Pas de carte requise.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="logo" style="margin-bottom: 2rem;"><span>🌅</span> Horizon Manager</a>
+          <p style="color: var(--text-sec); font-size: 1.1rem;">Rendre la gestion de projet enfin humaine et efficace
+            pour toutes les équipes.</p>
+          <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <!-- Icons placeholders -->
+            <span style="color:var(--text-sec)">LinkedIn</span>
+            <span style="color:var(--text-sec)">Twitter</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>PRODUIT</h4>
+          <ul>
+            <li><a href="#features">Fonctions</a></li>
+            <li><a href="#pricing">Tarifs</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>ENTREPRISE</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Presse</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>SUPPORT</h4>
+          <ul>
+            <li><a href="#">Centre d'aide</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>© 2024 Horizon Manager. Tous droits réservés.</p>
+        <div style="display: flex; gap: 2rem;">
+          <a href="#">Conditions d'utilisation</a>
+          <a href="#">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
