@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#6366f1" />
+  <title>Horizon Manager</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌅</text></svg>">
+  <link rel="stylesheet" href="styles.css?v=4.2">
+</head>
+
+<body>
+
+
+
+
+  <div id="toast-container" class="toast-container"></div>
+
+
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">🌅</div>
+      <h1>Horizon <span class="brand-subtitle">Manager</span></h1>
+    </div>
+
+    <div class="top-actions">
+      <div class="search">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="search" type="search" placeholder="Rechercher..." aria-label="Rechercher" />
+      </div>
+      <div class="user-actions">
+        <button class="btn icon-btn" id="theme-toggle" type="button" aria-label="Thème" title="Basculer le thème">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <div class="avatar-wrap">
+          <button id="avatar-btn" class="avatar-btn" aria-haspopup="true" aria-expanded="false"
+            aria-label="Menu utilisateur">
+            <span class="avatar">HM</span>
+          </button>
+          <div id="avatar-menu" class="avatar-menu" role="menu" hidden>
+            <div class="menu-header">
+              <span class="user-name">Administrateur</span>
+              <span class="user-email">admin@example.com</span>
+            </div>
+            <div class="menu-divider"></div>
+            <button role="menuitem" class="avatar-menu-item" data-action="profile">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              Profil
+            </button>
+            <button role="menuitem" class="avatar-menu-item" data-action="settings">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+              </svg>
+              Paramètres
+            </button>
+            <button role="menuitem" class="avatar-menu-item" data-action="logout" style="color:var(--danger)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Se déconnecter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" aria-label="Navigation principale">
+      <ul class="nav-list">
+        <li>
+          <button class="tab-btn active" data-tab="home" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Accueil
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="projects" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Projets
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="teams" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            Équipes
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn admin-only" data-tab="members" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <polyline points="17 11 19 13 23 9"></polyline>
+            </svg>
+            Membres
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="tasks" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Tâches
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="calendar" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Calendrier
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="dashboard" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Tableau de bord
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn admin-only" data-tab="logs" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Journal
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" id="sidebar-chat-members-btn" data-tab="chat" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+            </svg>
+            Discussion Membres
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" id="sidebar-chat-projects-btn" data-tab="chat" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Discussion Projets
+          </button>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <small class="muted">Version 2.0 Premium</small>
+      </div>
+    </nav>
+
+    <main class="main" id="main">
+      <!-- Home -->
+      <section id="home-tab" class="tab-content active">
+        <div class="hero">
+          <div class="hero-content">
+            <h3>👋 Bonjour, <span class="greeting-name">Administrateur</span></h3>
+            <p>Voici ce qui se passe aujourd'hui dans vos projets.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="mini-stat">
+              <span class="mini-stat-value" id="mini-stat-tasks">0</span>
+              <span class="mini-stat-label">Tâches en cours</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-stat-value" id="mini-stat-completed">0</span>
+              <span class="mini-stat-label">Tâches terminées</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="home-recent-projects-section">
+          <div class="section-header">
+            <h3>Projets Récents</h3>
+            <button class="btn btn-link" data-action="see-all-projects">Voir tout</button>
+          </div>
+          <div id="home-projects-list" class="cards-grid">
+            <!-- Skeletons will go here -->
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects-tab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>Mes Projets</h2>
+            <p class="section-subtitle">Gérez et suivez l'avancement de vos projets</p>
+          </div>
+          <button class="btn btn-primary admin-only" data-action="new-project">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Nouveau Projet
+          </button>
+        </div>
+        <div id="projects-list" class="cards-grid"></div>
+      </section>
+
+      <!-- Teams -->
+      <section id="teams-tab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>Équipes</h2>
+            <p class="section-subtitle">Collaborateurs et membres</p>
+          </div>
+          <div class="section-actions admin-only">
+            <button class="btn btn-primary" data-action="new-team">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Nouvelle Équipe
+            </button>
+          </div>
+        </div>
+        <div id="teams-list" class="cards-grid"></div>
+      </section>
+
+      <!-- Members -->
+      <section id="members-tab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>Membres</h2>
+            <p class="section-subtitle">Gérez vos collaborateurs et leurs rôles</p>
+          </div>
+          <div class="section-actions admin-only admin-delete">
+            <button class="btn btn-primary" onclick="openMemberEdit()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Ajouter un membre
+            </button>
+          </div>
+        </div>
+        <div id="members-list" class="cards-grid"></div>
+      </section>
+
+      <!-- Tasks (Kanban) -->
+      <section id="tasks-tab" class="tab-content">
+        <div class="kanban-header">
+          <div class="kanban-controls">
+            <h2>Tâches</h2>
+            <div class="filters-row">
+              <div class="search-input-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input id="task-search" type="search" placeholder="Filtrer..." oninput="loadTasks()" />
+              </div>
+              <select id="task-filter-project" onchange="loadTasks()" class="select-filter">
+                <option value="">Tous les projets</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" data-action="new-task">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Nouvelle Tâche
+          </button>
+        </div>
+
+        <div class="kanban-board">
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <span class="status-dot status-todo"></span>
+              À faire
+              <span class="count-badge" id="count-todo">0</span>
+            </div>
+            <div id="kanban-todo" class="kanban-list" data-status="0"></div>
+          </div>
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <span class="status-dot status-inprogress"></span>
+              En cours
+              <span class="count-badge" id="count-inprogress">0</span>
+            </div>
+            <div id="kanban-inprogress" class="kanban-list" data-status="1"></div>
+          </div>
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <span class="status-dot status-review"></span>
+              En revue
+              <span class="count-badge" id="count-review">0</span>
+            </div>
+            <div id="kanban-review" class="kanban-list" data-status="2"></div>
+          </div>
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <span class="status-dot status-done"></span>
+              Terminé
+              <span class="count-badge" id="count-done">0</span>
+            </div>
+            <div id="kanban-done" class="kanban-list" data-status="3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section id="dashboard-tab" class="tab-content">
+        <h2 style="margin-bottom:20px;">Tableau de bord</h2>
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon icon-projects">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-projects">0</h3>
+              <p>Projets Actifs</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon icon-tasks">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-tasks">0</h3>
+              <p>Total Tâches</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon icon-success">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <h3 id="completed-tasks">0</h3>
+              <p>Terminées</p>
+            </div>
+            <div class="stat-trend increasing">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon icon-teams">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-teams">0</h3>
+              <p>Équipes</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-section main-chart">
+            <!-- Placeholder for a simple CSS chart or similar -->
+            <h3>Avancement Global</h3>
+            <div class="progress-bars-container" id="dashboard-progress-container">
+              <!-- filled by JS -->
+            </div>
+          </div>
+          <div class="dashboard-section upcoming">
+            <h3>⚠️ Échéances Proches</h3>
+            <div id="upcoming-deadlines" class="upcoming-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Section -->
+      <section id="profile-tab" class="tab-content">
+        <div class="profile-header">
+          <div class="profile-cover"></div>
+          <div class="profile-info-bar">
+            <div class="profile-avatar-large avatar">AY</div>
+            <div class="profile-identity">
+              <h2 class="user-name">Aymen</h2>
+              <p class="user-email">aymenlahdaoui50@gmail.com</p>
+            </div>
+            <div class="profile-actions-inline">
+              <button class="btn btn-primary btn-sm" onclick="switchToTab('settings')">Modifier le profil</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-grid">
+          <div class="profile-card profile-stats-card">
+            <h3>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              Vos Statistiques
+            </h3>
+            <div class="profile-stats-grid">
+              <div class="p-stat">
+                <div class="p-stat-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <div class="p-stat-info">
+                  <span id="profile-proj-count" class="p-stat-value">0</span>
+                  <span class="p-stat-label">Projets</span>
+                </div>
+              </div>
+              <div class="p-stat">
+                <div class="p-stat-icon" style="background: rgba(var(--secondary), 0.1); color: rgb(var(--secondary));">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                </div>
+                <div class="p-stat-info">
+                  <span id="profile-task-count" class="p-stat-value">0</span>
+                  <span class="p-stat-label">Tâches</span>
+                </div>
+              </div>
+              <div class="p-stat">
+                <div class="p-stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="p-stat-info">
+                  <span id="profile-done-count" class="p-stat-value">0</span>
+                  <span class="p-stat-label">Terminées</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card profile-details-card">
+            <h3>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Informations du compte
+            </h3>
+            <div class="details-list">
+              <div class="detail-item">
+                <span class="detail-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                  Poste
+                </span>
+                <span id="profile-role-display" class="detail-value">Administrateur</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  Bio
+                </span>
+                <span id="profile-bio-display" class="detail-value">...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.18-2.18a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
+                  </svg>
+                  Téléphone
+                </span>
+                <span id="profile-phone-display" class="detail-value">Non renseigné</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  Membre depuis
+                </span>
+                <span class="detail-value">Janvier 2024</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  Dernière connexion
+                </span>
+                <span class="detail-value">Aujourd'hui</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Settings Section -->
+      <section id="settings-tab" class="tab-content">
+        <h2 style="margin-bottom:20px;">Paramètres</h2>
+
+        <div class="settings-grid">
+          <div class="settings-form-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg> Informations Personnelles</h3>
+            <form id="settings-form" onsubmit="saveProfileUpdate(event)">
+              <div class="form-group">
+                <label for="settings-fullname">Nom Complet</label>
+                <input type="text" id="settings-fullname" placeholder="Votre nom complet" required>
+              </div>
+              <div class="form-group">
+                <label for="settings-email">Adresse Email</label>
+                <div style="display: flex; gap: 0.75rem; align-items: center;">
+                  <input type="email" id="settings-email" placeholder="votre@email.com" required disabled
+                    style="flex: 1;">
+                  <button type="button" class="btn btn-secondary btn-sm"
+                    onclick="openModal('change-email-modal')">Modifier</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="settings-role">Poste / Titre</label>
+                <input type="text" id="settings-role" placeholder="Ex: Senior Developer" disabled>
+              </div>
+              <div class="form-group">
+                <label for="settings-phone">Numéro de téléphone</label>
+                <input type="tel" id="settings-phone" placeholder="+212 6 00 00 00 00">
+              </div>
+              <div class="form-group">
+                <label for="settings-bio">Bio / À propos</label>
+                <textarea id="settings-bio" rows="3" placeholder="Parlez-nous un peu de vous..."></textarea>
+              </div>
+              <div class="form-actions" style="margin-top: 1.5rem;">
+                <button type="submit" class="btn btn-primary" id="btn-save-settings">Enregistrer les
+                  modifications</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="settings-form-card security-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg> Sécurité</h3>
+            <div class="security-list" style="display:flex; flex-direction:column; gap:1.25rem;">
+              <div class="security-item">
+                <div class="security-info">
+                  <strong>Mot de passe</strong>
+                  <p>Dernière modification il y a 3 mois</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="openModal('change-password-modal')">Modifier</button>
+              </div>
+              <div class="security-item">
+                <div class="security-info">
+                  <strong>Double authentification</strong>
+                  <div id="2fa-status-text" style="font-size:0.85rem; color:var(--text-secondary);">Chargement...</div>
+                </div>
+                <button id="btn-2fa-toggle" class="btn btn-secondary btn-sm"
+                  onclick="handle2FAToggle()">Activer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat Tab -->
+      <section id="chat-tab" class="tab-content">
+        <div class="chat-tab-container" style="display: flex; height: 100%;">
+          <div class="chat-sidebar" id="chat-sidebar">
+            <div class="sidebar-header">
+              <h3>Conversations</h3>
+              <div class="chat-type-toggle">
+                <button class="btn btn-xs active" id="btn-show-members">Membres</button>
+                <button class="btn btn-xs" id="btn-show-projects">Projets</button>
+              </div>
+            </div>
+            <div id="chat-user-list" class="chat-user-list">
+              <!-- JS filled -->
+            </div>
+          </div>
+          <div class="chat-main">
+            <div id="chat-header" class="chat-header" style="display: none;">
+              <div class="chat-header-info">
+                <button class="btn icon-btn mobile-only" id="btn-back-to-sidebar">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <div class="avatar" id="chat-header-avatar"
+                  style="width:40px; height:40px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+                  ?</div>
+                <div>
+                  <h3 id="chat-with-name">...</h3>
+                  <div class="chat-status">En ligne</div>
+                </div>
+              </div>
+              <div class="chat-header-actions">
+                <div class="header-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.18-2.18a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </div>
+                <div class="header-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
+                </div>
+                <div class="header-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="12" cy="5" r="1" />
+                    <circle cx="12" cy="19" r="1" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+              <div class="empty-state" style="margin: auto; text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">💬</div>
+                <p class="text-muted">Sélectionnez une conversation pour commencer</p>
+              </div>
+            </div>
+            <div id="chat-input-area" class="chat-input-area" style="display: none;">
+              <div class="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                </svg>
+              </div>
+              <div class="input-icon" id="emoji-btn" title="Emojis">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                  <line x1="9" y1="9" x2="9.01" y2="9" />
+                  <line x1="15" y1="9" x2="15.01" y2="9" />
+                </svg>
+                <div id="emoji-picker" class="emoji-picker" hidden>
+                  <!-- Filled by JS -->
+                </div>
+              </div>
+              <div class="chat-input-wrapper">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Écrivez votre message..."
+                  autocomplete="off">
+              </div>
+              <button class="btn-send-messenger" id="chat-send-btn" onclick="sendMessage()" title="Envoyer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calendar Section -->
+      <section id="calendar-tab" class="tab-content">
+        <div class="calendar-header">
+          <div class="calendar-title">
+            <h2 id="calendar-month-year">Janvier 2024</h2>
+          </div>
+          <div class="calendar-controls">
+            <div class="calendar-filters">
+              <select id="calendar-filter-project" class="form-select">
+                <option value="">Tous les projets</option>
+              </select>
+              <select id="calendar-filter-priority" class="form-select">
+                <option value="">Toutes les priorités</option>
+                <option value="0">Basse</option>
+                <option value="1">Moyenne</option>
+                <option value="2">Haute</option>
+                <option value="3">Critique</option>
+              </select>
+            </div>
+            <div class="view-toggle">
+              <button class="toggle-btn active" data-view="month">Mois</button>
+              <button class="toggle-btn" data-view="week">Semaine</button>
+            </div>
+          </div>
+          <div class="calendar-nav">
+            <button class="btn btn-icon" id="prev-month" title="Mois précédent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button class="btn btn-secondary btn-sm" id="today-btn">Aujourd'hui</button>
+            <button class="btn btn-icon" id="next-month" title="Mois suivant">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="calendar-card glass">
+          <div class="calendar-grid-header">
+            <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+          </div>
+          <div id="calendar-days" class="calendar-grid">
+            <!-- Days will be generated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Logs Section -->
+      <section id="logs-tab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>Journal des activités</h2>
+            <p class="section-subtitle">Historique des actions effectuées sur la plateforme</p>
+          </div>
+          <div class="section-actions admin-only">
+            <button class="btn btn-secondary" onclick="clearLogs()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Effacer tout
+            </button>
+          </div>
+        </div>
+        <div class="logs-container">
+          <div id="logs-list" class="logs-list">
+            <div class="empty-state">
+              <div class="loader"></div>
+              <p>Chargement des activités...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Shared Modal Structure -->
+  <div id="project-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content"><button class="close" data-action="close-modal"
+        data-target="project-modal">&times;</button>
+      <h2 id="project-modal-title">Nouveau Projet</h2>
+      <form id="project-form" onsubmit="saveProject(event)"><input type="hidden" id="project-id">
+        <div class="form-group"><label>Nom</label><input type="text" id="project-name" required
+            placeholder="Ex: Refonte Site Web"></div>
+        <div class="form-group"><label>Description</label><textarea id="project-description" rows="3"
+            placeholder="Détails du projet..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>Équipe</label><select id="project-team" class="form-select" required></select>
+          </div>
+          <div class="form-group"><label>Statut</label><select id="project-status" class="form-select">
+              <option value="0">Non commencé</option>
+              <option value="1" selected>En cours</option>
+              <option value="2">En attente</option>
+              <option value="3">Terminé</option>
+              <option value="4">Annulé</option>
+            </select></div>
+        </div>
+        <div class="form-group"><label>Date limite</label><input type="datetime-local" id="project-deadline"></div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Enregistrer</button><button
+            type="button" class="btn btn-secondary" data-action="close-modal"
+            data-target="project-modal">Annuler</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="task-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content"><button class="close" data-action="close-modal" data-target="task-modal">&times;</button>
+      <h2 id="task-modal-title">Nouvelle Tâche</h2>
+      <form id="task-form" onsubmit="saveTask(event)"><input type="hidden" id="task-id">
+        <div class="form-group"><label>Titre</label><input type="text" id="task-title" required
+            placeholder="Ex: Maqueter la Homepage"></div>
+        <div class="form-group"><label>Description</label><textarea id="task-description" rows="3"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>Projet</label><select id="task-project" class="form-select" required></select>
+          </div>
+          <div class="form-group"><label>Assigné à</label><select id="task-assigned" class="form-select"></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Priorité</label><select id="task-priority" class="form-select">
+              <option value="0">Basse</option>
+              <option value="1" selected>Moyenne</option>
+              <option value="2">Haute</option>
+              <option value="3">Critique</option>
+            </select></div>
+          <div class="form-group"><label>Statut</label><select id="task-status" class="form-select">
+              <option value="0" selected>À faire</option>
+              <option value="1">En cours</option>
+              <option value="2">En revue</option>
+              <option value="3">Terminé</option>
+            </select></div>
+        </div>
+        <div class="form-group"><label>Date limite</label><input type="datetime-local" id="task-deadline"></div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Enregistrer</button><button
+            type="button" class="btn btn-secondary" data-action="close-modal" data-target="task-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="team-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content"><button class="close" data-action="close-modal" data-target="team-modal">&times;</button>
+      <h2 id="team-modal-title">Nouvelle Équipe</h2>
+      <form id="team-form" onsubmit="saveTeam(event)"><input type="hidden" id="team-id">
+        <div class="form-group"><label>Nom</label><input type="text" id="team-name" required
+            placeholder="Ex: Équipe Design"></div>
+        <div class="form-group"><label>Description</label><textarea id="team-description" rows="3"></textarea></div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Enregistrer</button><button
+            type="button" class="btn btn-secondary" data-action="close-modal" data-target="team-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="member-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="close" data-action="close-modal" data-target="member-modal">&times;</button>
+      <h2 id="member-modal-title">Nouveau Membre</h2>
+      <form id="member-form" onsubmit="saveMember(event)">
+        <input type="hidden" id="member-id">
+        <div class="form-group">
+          <label>Nom complet</label>
+          <input type="text" id="member-name" required placeholder="Ex: Jean Dupont">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="member-email" required placeholder="email@exemple.com">
+        </div>
+        <div class="form-group">
+          <label>Rôle Système</label>
+          <select id="member-system-role" class="form-select" onchange="toggleRoleBadges()">
+            <option value="User">Utilisateur</option>
+            <option value="Chef de Projet">Chef de Projet</option>
+            <option value="Sous-Admin">Sous-Admin</option>
+          </select>
+        </div>
+
+        <!-- Chef de groupe checkbox - Only visible for Chef de Projet -->
+        <div class="form-group" id="chef-de-groupe-container" style="display: none;">
+          <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="member-is-chef-groupe" style="width: 18px; height: 18px; cursor: pointer;">
+            <span style="font-weight: 500;">Chef de groupe 👑</span>
+          </label>
+          <small style="color: var(--text-secondary); display: block; margin-top: 0.25rem; margin-left: 1.75rem;">
+            Le membre sera désigné comme chef de son équipe
+          </small>
+        </div>
+
+        <!-- Superviseur checkbox - Only visible for Sous-Admin -->
+        <div class="form-group" id="superviseur-container" style="display: none;">
+          <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="member-is-superviseur" style="width: 18px; height: 18px; cursor: pointer;">
+            <span style="font-weight: 500;">Superviseur 🛡️</span>
+          </label>
+          <small style="color: var(--text-secondary); display: block; margin-top: 0.25rem; margin-left: 1.75rem;">
+            Le membre aura un badge distinctif de supervision
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Équipe</label>
+          <select id="member-team" class="form-select" required></select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" data-action="close-modal"
+            data-target="member-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="task-detail-modal" class="modal dropdown-modal" role="dialog" aria-modal="true">
+    <div class="modal-content modal-large">
+      <div id="task-detail-content"></div>
+    </div>
+  </div>
+
+  <div id="change-password-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="close" data-action="close-modal" data-target="change-password-modal">&times;</button>
+      <h2>Changer le mot de passe</h2>
+      <form id="change-password-form" onsubmit="handlePasswordChange(event)">
+        <div class="form-group">
+          <label for="current-password">Mot de passe actuel</label>
+          <input type="password" id="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">Nouveau mot de passe</label>
+          <input type="password" id="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirmer le nouveau mot de passe</label>
+          <input type="password" id="confirm-password" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-save-password">Mettre à jour</button>
+          <button type="button" class="btn btn-secondary" data-action="close-modal"
+            data-target="change-password-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="change-email-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="close" data-action="close-modal" data-target="change-email-modal">&times;</button>
+      <h2>Changer l'adresse email</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Pour des raisons de sécurité, veuillez confirmer
+        votre mot de passe actuel.</p>
+      <form id="change-email-form" onsubmit="handleEmailChange(event)">
+        <div class="form-group">
+          <label for="current-password-email">Mot de passe actuel</label>
+          <input type="password" id="current-password-email" required>
+        </div>
+        <div class="form-group">
+          <label for="new-email">Nouvelle adresse email</label>
+          <input type="email" id="new-email" required placeholder="nouvelle@email.com">
+        </div>
+        <div class="form-group">
+          <label for="confirm-new-email">Confirmer la nouvelle adresse email</label>
+          <input type="email" id="confirm-new-email" required placeholder="nouvelle@email.com">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-save-email">Mettre à jour</button>
+          <button type="button" class="btn btn-secondary" data-action="close-modal"
+            data-target="change-email-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="2fa-setup-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="close" data-action="close-modal" data-target="2fa-setup-modal">&times;</button>
+      <h2>Configurer la Double Authentification</h2>
+      <div style="margin-bottom: 1.5rem; line-height: 1.6; text-align: center;">
+        <p>Scannez ce code avec votre application d'authentification (Google Authenticator, Authy, etc.).</p>
+
+        <div id="2fa-qrcode"
+          style="background: white; padding: 15px; border-radius: 12px; display: inline-block; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <!-- QR Code will be rendered here -->
+        </div>
+
+        <div
+          style="background: var(--bg-hover); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
+          <small style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Ou entrez la clé
+            manuellement :</small>
+          <code id="2fa-secret-key"
+            style="font-size: 1rem; font-weight: bold; letter-spacing: 1px;">Chargement...</code>
+        </div>
+      </div>
+      <form id="2fa-verify-form" onsubmit="handle2FAVerify(event)">
+        <div class="form-group">
+          <label for="2fa-code">Code de vérification</label>
+          <input type="text" id="2fa-code" required placeholder="000000" maxlength="6" pattern="[0-9]*"
+            inputmode="numeric" style="text-align: center; font-size: 1.5rem; letter-spacing: 5px;">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-verify-2fa">Vérifier et Activer</button>
+          <button type="button" class="btn btn-secondary" data-action="close-modal"
+            data-target="2fa-setup-modal">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+  <script src="auth.js?v=4.2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Protect page
+    checkAuth();
+
+    // Wire logout
+    document.addEventListener('DOMContentLoaded', () => {
+      const logoutBtn = document.querySelector('[data-action="logout"]');
+      if (logoutBtn) logoutBtn.addEventListener('click', logout);
+    });
+  </script>
+
+  <script src="app.js?v=4.2"></script>
+  <script src="chat.js?v=4.2"></script>
+  <script>
+    // Init theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
+</body>
+
+</html>
