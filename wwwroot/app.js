@@ -2201,3 +2201,4 @@ window.clearLogs = async function () {
         showToast('Erreur réseau', 'error');
     }
 }
+

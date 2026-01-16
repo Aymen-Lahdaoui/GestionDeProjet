@@ -105,3 +105,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue pour 
 ## 📄 Licence
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
